@@ -1,0 +1,19 @@
+# DLL Windows x64 pour le menu natif de stamps.
+CC := x86_64-w64-mingw32-gcc
+MINHOOK_DIR := ../external/minhook
+SOURCES := src/dllmain_pipette.c src/native_stamp.c src/native_catalogue.c src/native_library.c src/native_icons.c ../external/miniz/miniz_tinfl.c ../external/miniz/miniz_tdef.c ../external/miniz/miniz.c $(MINHOOK_DIR)/src/hook.c $(MINHOOK_DIR)/src/buffer.c \
+           $(MINHOOK_DIR)/src/trampoline.c $(MINHOOK_DIR)/src/hde/hde64.c
+CFLAGS := -O2 -Wall -Wextra -Wno-unused-parameter -DSTAMPS_NATIVE_UI \
+          -DMINIZ_NO_ARCHIVE_APIS -DMINIZ_NO_ZLIB_APIS -I../external/miniz \
+          -I$(MINHOOK_DIR)/include -I$(MINHOOK_DIR)/src/hde \
+          -DUNICODE -D_UNICODE -DWIN32_LEAN_AND_MEAN -DNOMINMAX \
+          -ffunction-sections -fdata-sections
+LDFLAGS := -static-libgcc -static -Wl,--gc-sections -Wl,--enable-stdcall-fixup
+TARGET := ../build/native-stamps-ui/dbghelp.dll
+
+.PHONY: all
+all: $(TARGET)
+
+$(TARGET): $(SOURCES) src/native_stamp.h src/native_catalogue.h src/native_management.h src/native_management.inc src/dbghelp.def
+	mkdir -p ../build/native-stamps-ui
+	$(CC) -shared $(CFLAGS) $(LDFLAGS) -o $@ $(SOURCES) src/dbghelp.def -luser32 -lkernel32 -lshell32 -lm

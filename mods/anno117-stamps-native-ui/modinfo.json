@@ -1,0 +1,19 @@
+{
+  "Anno": 8,
+  "ModID": "anno117-stamps-native-ui",
+  "Version": "0.4.0",
+  "Difficulty": "unchanged",
+  "Category": { "English": "Tools", "French": "Outils" },
+  "ModName": { "English": "Stamps — native menu", "French": "Stamps — menu natif" },
+  "Description": {
+    "English": "Native stamp menu refreshed in game from the original stamp files.",
+    "French": "Menu natif de stamps actualisé en jeu depuis les fichiers originaux."
+  },
+  "GameSetup": { "SafeToRemove": true },
+  "Scripts": {
+    "Modules": ["scripts/native-stamps.lua", "scripts/native-stamps-data.lua", "scripts/native-stamps-live.lua", "scripts/native-stamps-editor.lua"],
+    "Init": "StampsNativeUI = require('native-stamps'); StampsNativeUI:Init()",
+    "Load": "StampsNativeUI = require('native-stamps'); StampsNativeUI:OnLoad()",
+    "Tick": "StampsNativeUI:Tick()"
+  }
+}
