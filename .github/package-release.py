@@ -43,6 +43,7 @@ with tempfile.TemporaryDirectory(prefix='anno117-release-') as directory:
     shutil.copy2(dll, package / 'dbghelp.dll')
     for filename in ('README.md', 'LICENSE', 'install-linux.sh', 'install-windows.ps1'):
         shutil.copy2(ROOT / filename, package / filename)
+    shutil.copytree(ROOT / '.github/images', package / '.github/images')
     (package / 'licenses').mkdir()
     shutil.copy2(ROOT / 'external/minhook/LICENSE.txt', package / 'licenses/MinHook.txt')
     shutil.copy2(ROOT / 'external/miniz/LICENSE', package / 'licenses/miniz.txt')

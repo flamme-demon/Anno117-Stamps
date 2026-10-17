@@ -2,6 +2,10 @@
 
 [English](#english) · [Français](#français)
 
+![Stamp folders / Dossiers de stamps](.github/images/stamp-folders.png)
+
+![Stamp library and tooltip / Bibliothèque de stamps et infobulle](.github/images/stamp-library.png)
+
 ## English
 
 Create, organize and place stamps directly from the construction menu in

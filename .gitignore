@@ -14,6 +14,10 @@
 /.github/*
 !/.github/workflows/
 !/.github/package-release.py
+!/.github/images/
+/.github/images/*
+!/.github/images/stamp-folders.png
+!/.github/images/stamp-library.png
 
 /dll/*
 !/dll/Makefile.native-ui
