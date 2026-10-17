@@ -21,7 +21,7 @@ fail() { printf 'Error: %s\n' "$*" >&2; exit 1; }
 while (($#)); do
     case $1 in
         --game|--prefix|--documents|--profile)
-            (($# >= 2)) && [[ -n $2 ]] || fail "Missing value for $1"
+            if (($# < 2)) || [[ -z ${2-} ]]; then fail "Missing value for $1"; fi
             case $1 in
                 --game) game_dir=$2;; --prefix) prefix=$2;;
                 --documents) documents=$2;; --profile) profile_name=$2;;
