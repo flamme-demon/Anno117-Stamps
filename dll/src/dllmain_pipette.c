@@ -754,6 +754,7 @@ static int mesh_write_from_roads(void) {
 #define UI_CLEAR_COPY (UI_GUID_MIN + 8)
 // Empty until the first click; resolved through the user's Windows Documents.
 static WCHAR g_ui_stamp_root[32768];
+static WCHAR g_ui_icon_index[32768];
 static NativeCatalogue g_live_catalogue;
 static char g_live_error[512];
 
@@ -868,13 +869,29 @@ static int ui_stamp_root(void) {
         if (FAILED(SHGetFolderPathW(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, documents))) return 0;
         swprintf(g_ui_stamp_root, 32768, L"%ls\\Anno 117 - Pax Romana\\stamps", documents);
     }
+    if (!g_ui_icon_index[0]) {
+        WCHAR bundled[32768];
+        const WCHAR* suffix=L"\\..\\mods\\anno117-stamps-native-ui\\native-ui\\icons.tsv";
+        wcscpy(g_ui_icon_index,L"C:\\anno117-stamps\\native-ui\\icons.tsv");
+        if (wcslen(g_ui_stamp_root)+wcslen(suffix)<32768) {
+            DWORD attributes;
+            swprintf(bundled,32768,L"%ls%ls",g_ui_stamp_root,suffix);
+            attributes=GetFileAttributesW(bundled);
+            if (attributes!=INVALID_FILE_ATTRIBUTES && !(attributes&FILE_ATTRIBUTE_DIRECTORY))
+                wcscpy(g_ui_icon_index,bundled);
+        }
+        // Preferences are created on first use. Never replace an existing file.
+        CreateDirectoryW(L"C:\\anno117-stamps",NULL);
+        CreateDirectoryW(L"C:\\anno117-stamps\\native-ui",NULL);
+        CreateDirectoryW(g_ui_stamp_root,NULL);
+    }
     return 1;
 }
 static int ui_refresh_catalogue(int force) {
     uint32_t previous = g_live_catalogue.revision;
     if (!ui_stamp_root()) return 0;
     if (!native_catalogue_refresh(&g_live_catalogue, g_ui_stamp_root,
-          L"C:\\anno117-stamps\\native-ui\\icons.tsv", L"C:\\anno117-stamps\\native-ui\\slots.tsv",
+          g_ui_icon_index, L"C:\\anno117-stamps\\native-ui\\slots.tsv",
           GetTickCount64(), force)) return 0;
     if (g_ui_presentation_revision!=g_live_catalogue.revision) ui_publish_presentation();
     if (previous != g_live_catalogue.revision)

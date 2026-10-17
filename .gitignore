@@ -4,9 +4,16 @@
 !/.gitignore
 !/LICENSE
 !/README.md
+!/.github/
+!/install-linux.sh
+!/install-windows.ps1
 !/dll/
 !/external/
 !/mods/
+
+/.github/*
+!/.github/workflows/
+!/.github/package-release.py
 
 /dll/*
 !/dll/Makefile.native-ui

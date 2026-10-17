@@ -1,0 +1,174 @@
+name: Build DLL and release ZIP
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gcc-mingw-w64-x86-64 make shellcheck
+      - name: Compile Windows x64 DLL
+        run: make -C dll -f Makefile.native-ui
+      - name: Check Linux installer
+        run: |
+          bash -n install-linux.sh
+          shellcheck install-linux.sh
+      - name: Assemble ZIP and checksums
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: python3 .github/package-release.py
+      - name: Check Linux installation and update in temporary folders
+        shell: bash
+        run: |
+          set -euo pipefail
+          fixture=$(mktemp -d)
+          trap 'rm -rf -- "$fixture"' EXIT
+          unzip -q build/release/Anno117-Stamps-*.zip -d "$fixture/package"
+          package=("$fixture"/package/Anno117-Stamps-*)
+          game="$fixture/Game [test]"
+          prefix="$fixture/Prefix"
+          docs="$prefix/drive_c/users/steamuser/Documents/Anno 117 - Pax Romana"
+          runtime="$prefix/drive_c/anno117-stamps/native-ui"
+          mkdir -p "$game/Bin/Win64" "$docs/mods/profiles" "$runtime" "$docs/stamps"
+          printf 'MZ original game DLL' > "$game/Bin/Win64/dbghelp.dll"
+          printf 'ActiveProfile custom\r\n' > "$docs/mods/profile.txt"
+          printf 'other-mod\r\n# anno117-stamps-native-ui\r\n' > "$docs/mods/profiles/custom.txt"
+          printf 'keep folder icons' > "$runtime/folder-icons.json"
+          printf 'keep slots' > "$runtime/slots.tsv"
+          printf 'keep catalogue' > "$runtime/catalogue.tsv"
+          printf 'keep stamp' > "$docs/stamps/personal"
+          bash "${package[0]}/install-linux.sh" --game "$game" --prefix "$prefix" --dry-run
+          test ! -e "$game/Bin/Win64/dbghelp_orig.dll"
+          for _pass in 1 2; do
+            bash "${package[0]}/install-linux.sh" --game "$game" --prefix "$prefix"
+            cmp "$game/Bin/Win64/dbghelp.dll" "${package[0]}/dbghelp.dll"
+            test "$(cat "$game/Bin/Win64/dbghelp_orig.dll")" = 'MZ original game DLL'
+            test "$(cat "$runtime/folder-icons.json")" = 'keep folder icons'
+            test "$(cat "$runtime/slots.tsv")" = 'keep slots'
+            test "$(cat "$runtime/catalogue.tsv")" = 'keep catalogue'
+            test "$(cat "$docs/stamps/personal")" = 'keep stamp'
+            test "$(grep -cx anno117-stamps-native-ui "$docs/mods/profiles/custom.txt")" = 1
+            grep -qx other-mod "$docs/mods/profiles/custom.txt"
+          done
+          # A proxy without its original must be refused before any write.
+          mv "$game/Bin/Win64/dbghelp_orig.dll" "$fixture/original.saved"
+          if bash "${package[0]}/install-linux.sh" --game "$game" --prefix "$prefix" > "$fixture/refused.log" 2>&1; then
+            echo 'Missing original DLL was not refused.' >&2
+            exit 1
+          fi
+          mv "$fixture/original.saved" "$game/Bin/Win64/dbghelp_orig.dll"
+          # Failure on the final DLL replacement must restore earlier copies.
+          printf 'old installed Lua' > "$docs/mods/anno117-stamps-native-ui/scripts/native-stamps-live.lua"
+          printf 'other-mod\n# anno117-stamps-native-ui\n' > "$docs/mods/profiles/custom.txt"
+          chmod u-w "$game/Bin/Win64"
+          failed=0
+          bash "${package[0]}/install-linux.sh" --game "$game" --prefix "$prefix" > "$fixture/rollback.log" 2>&1 || failed=1
+          chmod u+w "$game/Bin/Win64"
+          test "$failed" = 1
+          test "$(cat "$docs/mods/anno117-stamps-native-ui/scripts/native-stamps-live.lua")" = 'old installed Lua'
+          grep -qx '# anno117-stamps-native-ui' "$docs/mods/profiles/custom.txt"
+          cmp "$game/Bin/Win64/dbghelp.dll" "${package[0]}/dbghelp.dll"
+      - name: Save DLL, ZIP and checksums
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: release-package
+          path: build/release/*
+          if-no-files-found: error
+          retention-days: 14
+
+  windows-installer:
+    needs: build
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: release-package
+          path: release
+      - name: Check installation and update with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $fixture = Join-Path $env:RUNNER_TEMP ('Stamps install [test] ' + [guid]::NewGuid().ToString('N'))
+          $unpacked = Join-Path $fixture 'package'
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          [IO.Compression.ZipFile]::ExtractToDirectory((Get-ChildItem release -Filter '*.zip').FullName, $unpacked)
+          $package = (Get-ChildItem -LiteralPath $unpacked -Directory).FullName
+          $game = Join-Path $fixture 'Game'
+          $drive = Join-Path $fixture 'Drive C'
+          $docs = Join-Path $drive 'users/player/Documents/Anno 117 - Pax Romana'
+          $runtime = Join-Path $drive 'anno117-stamps/native-ui'
+          foreach ($dir in @("$game/Bin/Win64", "$docs/mods/profiles", "$docs/stamps", $runtime)) {
+            [void][IO.Directory]::CreateDirectory($dir)
+          }
+          [IO.File]::WriteAllText("$game/Bin/Win64/dbghelp.dll", 'MZ original game DLL')
+          [IO.File]::WriteAllText("$docs/mods/profile.txt", "ActiveProfile custom`r`n")
+          [IO.File]::WriteAllText("$docs/mods/profiles/custom.txt", "other-mod`r`n# anno117-stamps-native-ui`r`n")
+          foreach ($file in @('folder-icons.json', 'slots.tsv', 'catalogue.tsv')) {
+            [IO.File]::WriteAllText((Join-Path $runtime $file), "keep $file")
+          }
+          [IO.File]::WriteAllText("$docs/stamps/personal", 'keep stamp')
+          $installer = Join-Path $package 'install-windows.ps1'
+          & $installer -GameDir $game -Documents $docs -DriveC $drive -DryRun
+          if ([IO.File]::Exists("$game/Bin/Win64/dbghelp_orig.dll")) { throw 'Dry run changed the game.' }
+          foreach ($pass in 1, 2) {
+            & $installer -GameDir $game -Documents $docs -DriveC $drive
+            if ((Get-FileHash -LiteralPath "$game/Bin/Win64/dbghelp.dll").Hash -ne
+                (Get-FileHash -LiteralPath "$package/dbghelp.dll").Hash) { throw 'DLL not installed.' }
+            if ([IO.File]::ReadAllText("$game/Bin/Win64/dbghelp_orig.dll") -ne 'MZ original game DLL') { throw 'Original DLL changed.' }
+            foreach ($file in @('folder-icons.json', 'slots.tsv', 'catalogue.tsv')) {
+              if ([IO.File]::ReadAllText((Join-Path $runtime $file)) -ne "keep $file") { throw "Preference changed: $file" }
+            }
+            if ([IO.File]::ReadAllText("$docs/stamps/personal") -ne 'keep stamp') { throw 'Stamp changed.' }
+            $lines = [IO.File]::ReadAllLines("$docs/mods/profiles/custom.txt")
+            if (@($lines | Where-Object { $_ -eq 'anno117-stamps-native-ui' }).Count -ne 1 -or
+                $lines -notcontains 'other-mod') { throw 'Profile changed incorrectly.' }
+          }
+          $oldLua = Join-Path $docs 'mods/anno117-stamps-native-ui/scripts/native-stamps-live.lua'
+          [IO.File]::WriteAllText($oldLua, 'old installed Lua')
+          [IO.File]::WriteAllText("$docs/mods/profiles/custom.txt", "other-mod`r`n# anno117-stamps-native-ui`r`n")
+          $locked = [IO.File]::Open("$game/Bin/Win64/dbghelp.dll", 'Open', 'Read', 'Read')
+          $failed = $false
+          try { & $installer -GameDir $game -Documents $docs -DriveC $drive }
+          catch { $failed = $true }
+          finally { $locked.Dispose() }
+          if (-not $failed) { throw 'A locked game DLL was not refused.' }
+          if ([IO.File]::ReadAllText($oldLua) -ne 'old installed Lua') { throw 'Mod rollback failed.' }
+          if ([IO.File]::ReadAllLines("$docs/mods/profiles/custom.txt") -notcontains '# anno117-stamps-native-ui') {
+            throw 'Profile rollback failed.'
+          }
+
+  publish:
+    if: github.event_name == 'release'
+    needs: [build, windows-installer]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: release-package
+          path: release
+      - name: Attach DLL, ZIP and checksums to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$RELEASE_TAG" release/* --clobber
