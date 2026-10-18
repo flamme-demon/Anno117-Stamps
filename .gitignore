@@ -33,6 +33,7 @@
 !/dll/src/native_icons.c
 !/dll/src/native_management.h
 !/dll/src/native_management.inc
+!/dll/src/native_ui_strings.inc
 
 # Dépendances compilées dans la DLL : sources et licences, sans sous-module.
 /external/*

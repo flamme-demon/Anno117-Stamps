@@ -66,32 +66,8 @@
       <Text>Fermer</Text>
     </Text>
     <Text>
-      <LineId>1700100180</LineId>
-      <Text>Habitations</Text>
-    </Text>
-    <Text>
-      <LineId>1700100181</LineId>
-      <Text>Routes</Text>
-    </Text>
-    <Text>
-      <LineId>1700100182</LineId>
-      <Text>Dossiers</Text>
-    </Text>
-    <Text>
-      <LineId>1700100183</LineId>
-      <Text>Stamps</Text>
-    </Text>
-    <Text>
-      <LineId>1700100184</LineId>
-      <Text>Agriculture</Text>
-    </Text>
-    <Text>
-      <LineId>1700100185</LineId>
-      <Text>Entrepôts</Text>
-    </Text>
-    <Text>
       <LineId>1700100186</LineId>
-      <Text>Saisir un ID</Text>
+      <Text>Rechercher une icône</Text>
     </Text>
     <Text>
       <LineId>1700100187</LineId>
@@ -100,18 +76,6 @@
     <Text>
       <LineId>1700100188</LineId>
       <Text>Retour</Text>
-    </Text>
-    <Text>
-      <LineId>1700100202</LineId>
-      <Text>Page précédente</Text>
-    </Text>
-    <Text>
-      <LineId>1700100203</LineId>
-      <Text>Page suivante</Text>
-    </Text>
-    <Text>
-      <LineId>1700100204</LineId>
-      <Text>Fermer</Text>
     </Text>
     <Text>
       <LineId>1700100212</LineId>
@@ -16932,6 +16896,318 @@
     <Text>
       <LineId>1539937070</LineId>
       <Text>Stamps</Text>
+    </Text>
+    <Text>
+      <LineId>1700231072</LineId>
+      <Text>Stamp</Text>
+    </Text>
+    <Text>
+      <LineId>1700231073</LineId>
+      <Text>Renommer</Text>
+    </Text>
+    <Text>
+      <LineId>1700231074</LineId>
+      <Text>Supprimer</Text>
+    </Text>
+    <Text>
+      <LineId>1700231075</LineId>
+      <Text>Changer l’icône</Text>
+    </Text>
+    <Text>
+      <LineId>1700231076</LineId>
+      <Text>Fermer</Text>
+    </Text>
+    <Text>
+      <LineId>1700231077</LineId>
+      <Text>Renommer le dossier</Text>
+    </Text>
+    <Text>
+      <LineId>1700231078</LineId>
+      <Text>Gérer les stamps</Text>
+    </Text>
+    <Text>
+      <LineId>1700231079</LineId>
+      <Text>Enregistrer</Text>
+    </Text>
+    <Text>
+      <LineId>1700231080</LineId>
+      <Text>Annuler</Text>
+    </Text>
+    <Text>
+      <LineId>1700231081</LineId>
+      <Text>Page précédente</Text>
+    </Text>
+    <Text>
+      <LineId>1700231082</LineId>
+      <Text>Page suivante</Text>
+    </Text>
+    <Text>
+      <LineId>1700231084</LineId>
+      <Text>Icône par défaut</Text>
+    </Text>
+    <Text>
+      <LineId>1700231085</LineId>
+      <Text>Retour</Text>
+    </Text>
+    <Text>
+      <LineId>1700231086</LineId>
+      <Text>Nouveau dossier</Text>
+    </Text>
+    <Text>
+      <LineId>1700231087</LineId>
+      <Text>Parcourir les dossiers</Text>
+    </Text>
+    <Text>
+      <LineId>1700231088</LineId>
+      <Text>Bibliothèque de stamps</Text>
+    </Text>
+    <Text>
+      <LineId>1700231089</LineId>
+      <Text>Choisis une action.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231090</LineId>
+      <Text>Gérer les dossiers</Text>
+    </Text>
+    <Text>
+      <LineId>1700231091</LineId>
+      <Text>Créer un stamp ici</Text>
+    </Text>
+    <Text>
+      <LineId>1700231092</LineId>
+      <Text>Gérer ce dossier</Text>
+    </Text>
+    <Text>
+      <LineId>1700231093</LineId>
+      <Text>Stamp enregistré. Cliquer pour charger le groupe, puis cliquer sur la carte pour le poser.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231094</LineId>
+      <Text>Dossier %u</Text>
+    </Text>
+    <Text>
+      <LineId>1700231095</LineId>
+      <Text>Action impossible.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231096</LineId>
+      <Text>Renommer le stamp</Text>
+    </Text>
+    <Text>
+      <LineId>1700231097</LineId>
+      <Text>Renommer ce dossier, changer son icône ou gérer ses stamps.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231098</LineId>
+      <Text>Renommer ce stamp, changer son icône ou le supprimer.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231101</LineId>
+      <Text>Saisis le nom au clavier, puis clique sur Enregistrer.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231102</LineId>
+      <Text>Tout est sélectionné.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231103</LineId>
+      <Text>Saisie au clavier.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231105</LineId>
+      <Text>Nom à corriger</Text>
+    </Text>
+    <Text>
+      <LineId>1700231106</LineId>
+      <Text>Vérifie la saisie.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231107</LineId>
+      <Text>Supprimer ce stamp ?</Text>
+    </Text>
+    <Text>
+      <LineId>1700231108</LineId>
+      <Text>Le stamp disparaîtra du menu. Son fichier sera conservé dans la corbeille du mod.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231109</LineId>
+      <Text>Créer un stamp — dossier de destination</Text>
+    </Text>
+    <Text>
+      <LineId>1700231110</LineId>
+      <Text>Choisis le dossier avant de tracer ta sélection.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231111</LineId>
+      <Text>Choisis le stamp à gérer.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231112</LineId>
+      <Text>Choisis le dossier à gérer.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231113</LineId>
+      <Text>Ce dossier est vide.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231114</LineId>
+      <Text>Ce dossier a atteint la limite de 64 emplacements.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231115</LineId>
+      <Text>La fenêtre du jeu n'est pas active.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231117</LineId>
+      <Text>Créer un dossier ou parcourir les dossiers de cette région.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231118</LineId>
+      <Text>Galerie d'icônes indisponible pour cette version du jeu.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231119</LineId>
+      <Text>Rechercher une icône</Text>
+    </Text>
+    <Text>
+      <LineId>1700231120</LineId>
+      <Text>Filtre les noms de fichiers des icônes ou saisis un ID. Laisse vide pour tout afficher.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231122</LineId>
+      <Text>Toutes les icônes</Text>
+    </Text>
+    <Text>
+      <LineId>1700231123</LineId>
+      <Text>Dossier de stamps</Text>
+    </Text>
+    <Text>
+      <LineId>1700231124</LineId>
+      <Text>%u bâtiment(s) · %u case(s) de route · %u zone(s)</Text>
+    </Text>
+    <Text>
+      <LineId>1700231125</LineId>
+      <Text>Gratuit</Text>
+    </Text>
+    <Text>
+      <LineId>1700231126</LineId>
+      <Text>Coût du groupe indisponible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231127</LineId>
+      <Text>Page %u / %u</Text>
+    </Text>
+    <Text>
+      <LineId>1700231128</LineId>
+      <Text>Nom de dossier invalide</Text>
+    </Text>
+    <Text>
+      <LineId>1700231129</LineId>
+      <Text>Dossier des stamps indisponible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231130</LineId>
+      <Text>Limite de 16 dossiers dans cette région</Text>
+    </Text>
+    <Text>
+      <LineId>1700231131</LineId>
+      <Text>Chemin trop long</Text>
+    </Text>
+    <Text>
+      <LineId>1700231132</LineId>
+      <Text>Région indisponible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231133</LineId>
+      <Text>Mémoire insuffisante</Text>
+    </Text>
+    <Text>
+      <LineId>1700231134</LineId>
+      <Text>Ce dossier existe déjà ou ne peut pas être créé</Text>
+    </Text>
+    <Text>
+      <LineId>1700231135</LineId>
+      <Text>Enregistrement du dossier impossible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231136</LineId>
+      <Text>Nom invalide ou élément indisponible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231137</LineId>
+      <Text>Ce nom existe déjà</Text>
+    </Text>
+    <Text>
+      <LineId>1700231138</LineId>
+      <Text>Ce nom existe déjà ou le renommage est impossible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231139</LineId>
+      <Text>Renommage effectué, sauvegarde des identifiants à réessayer</Text>
+    </Text>
+    <Text>
+      <LineId>1700231140</LineId>
+      <Text>Renommage annulé : identifiants non enregistrés</Text>
+    </Text>
+    <Text>
+      <LineId>1700231141</LineId>
+      <Text>Stamp indisponible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231142</LineId>
+      <Text>Corbeille indisponible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231143</LineId>
+      <Text>Suppression impossible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231144</LineId>
+      <Text>Stamp déplacé dans la corbeille, identifiants à réessayer</Text>
+    </Text>
+    <Text>
+      <LineId>1700231145</LineId>
+      <Text>Suppression annulée : identifiants non enregistrés</Text>
+    </Text>
+    <Text>
+      <LineId>1700231146</LineId>
+      <Text>Stamp indisponible ou en cours de modification</Text>
+    </Text>
+    <Text>
+      <LineId>1700231147</LineId>
+      <Text>Lecture du stamp impossible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231148</LineId>
+      <Text>Chemin du stamp invalide</Text>
+    </Text>
+    <Text>
+      <LineId>1700231149</LineId>
+      <Text>Création du fichier temporaire impossible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231150</LineId>
+      <Text>Modification de l'icône impossible ; stamp conservé</Text>
+    </Text>
+    <Text>
+      <LineId>1700231151</LineId>
+      <Text>Élément indisponible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231152</LineId>
+      <Text>ID d'icône inconnu</Text>
+    </Text>
+    <Text>
+      <LineId>1700231153</LineId>
+      <Text>Enregistrement de l'icône du dossier impossible</Text>
+    </Text>
+    <Text>
+      <LineId>1700231160</LineId>
+      <Text>Molette : faire défiler les icônes.</Text>
+    </Text>
+    <Text>
+      <LineId>1700231161</LineId>
+      <Text>Page</Text>
     </Text>
   </ModOp>
 </ModOps>

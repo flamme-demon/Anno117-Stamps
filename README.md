@@ -11,7 +11,10 @@
 Create, organize and place stamps directly from the construction menu in
 **Anno 117 — Pax Romana**.
 
-The in-game interface is currently in **French**.
+The interface follows the game language: English, French, German, Italian, Spanish,
+Brazilian Portuguese, Polish, Russian, Japanese, Korean, Simplified Chinese and Traditional Chinese.
+Stamp and folder icons can be changed from their management menus. The icon
+picker displays the game's icons in a native window with scrolling and search.
 
 ### Download
 
@@ -58,6 +61,19 @@ Enable the mod in the game's mod manager, then open **Stamps** in the constructi
 Your stamps are kept in the game's Documents folder, under **`stamps`**.
 That folder is created automatically if needed.
 
+### Change icons
+
+1. Open a stamp's or folder's management menu and choose **Change icon**.
+2. Browse the images with the mouse wheel, or use Page Up/Down, Home and End.
+   The window stays open while you browse.
+3. Click an image to apply it. **Search** accepts an icon filename or an icon ID;
+   an empty search shows all icons. **Default icon** restores the default choice,
+   and **Back** returns to the management menu.
+
+The picker contains 2,100 distinct game icon textures. Changing a stamp icon
+updates its native `IconGUID` without changing its buildings, roads or areas.
+Folder icons are saved separately and restored on the next launch.
+
 ### License
 
 [MIT](LICENSE). MinHook and miniz retain their own licenses. The included native
@@ -68,7 +84,11 @@ popup widget originates from the game.
 Créer, organiser et poser des stamps directement dans le menu de construction
 d’**Anno 117 — Pax Romana**.
 
-L’interface du mod est actuellement en **français**.
+L’interface suit la langue du jeu : français, anglais, allemand, italien, espagnol,
+portugais brésilien, polonais, russe, japonais, coréen, chinois simplifié et chinois traditionnel.
+Les icônes des stamps et des dossiers se changent depuis leur menu de gestion.
+Le sélecteur affiche les icônes du jeu dans une fenêtre native avec défilement
+et recherche.
 
 ### Téléchargement
 
@@ -114,6 +134,19 @@ Si le jeu est installé ailleurs, utiliser son propre dossier `Bin/Win64`.
 Activer le mod dans le gestionnaire de mods du jeu, puis ouvrir **Stamps** dans le menu de construction.
 Les stamps sont conservés dans les Documents du jeu, dans le dossier **`stamps`**.
 Ce dossier est créé automatiquement si nécessaire.
+
+### Changer les icônes
+
+1. Ouvrir le menu de gestion d’un stamp ou d’un dossier et choisir **Changer l’icône**.
+2. Parcourir les images avec la molette, ou les touches Page précédente/suivante,
+   Début et Fin. La fenêtre reste ouverte pendant le défilement.
+3. Cliquer sur une image pour l’appliquer. **Rechercher une icône** accepte un nom
+   de fichier d’icône ou un ID ; une recherche vide affiche tout. **Icône par défaut**
+   rétablit le choix par défaut et **Retour** revient au menu de gestion.
+
+Le sélecteur contient 2 100 textures d’icônes distinctes du jeu. Changer l’icône
+d’un stamp modifie son `IconGUID` natif en conservant ses bâtiments, routes et zones.
+Les icônes des dossiers sont enregistrées séparément et retrouvées au prochain lancement.
 
 ### Licence
 

@@ -2,6 +2,11 @@
 local Live = {}
 Live.__index = Live
 
+local function localized(index, fallback)
+    local ok,value=pcall(function() return Text:GetText(1700231072+index) end)
+    return ok and type(value)=="string" and value~="" and value or fallback
+end
+
 local function get(object, key)
     if object == nil then return nil end
     local ok, value = pcall(function() return object[key] end)
@@ -223,14 +228,14 @@ function Live:PaintTooltip(row)
             heading=put(node,"HeadlineTextString",row.name)
             if get(node,"IconID")~=nil and row.icon~="" then put(node,"IconID",row.icon) end
             if get(node,"SublineTextString")~=nil then
-                put(node,"SublineTextString",row.folder and "Dossier de stamps" or "Stamp")
+                put(node,"SublineTextString",row.folder and localized(51,"Dossier de stamps") or localized(0,"Stamp"))
             end
         end
     end,0)
     if row.folder then return end
     local prices=self:Costs(row)
-    local summary=tostring(row.buildings).." bâtiment(s) · "..tostring(row.road_tiles).." case(s) de route"
-    if row.polygons and row.polygons>0 then summary=summary.." · "..row.polygons.." zone(s)" end
+    local summary=string.format(localized(52,"%u bâtiment(s) · %u case(s) de route · %u zone(s)"),
+        row.buildings,row.road_tiles,row.polygons or 0)
     local grids, paragraph = {}, nil
     walk(get(tip,"Body"),function(node)
         if not paragraph and type(get(node,"TextString"))=="string" then paragraph=node end
@@ -254,22 +259,22 @@ function Live:PaintTooltip(row)
                 put(cell,"IsWarning",price~=nil and type(price.available)=="number" and price.available<price.amount)
             end
         else
-            local lines={summary,"Coût de construction (base) :"}
+            local lines={summary}
             for _,price in ipairs(prices) do lines[#lines+1]=tostring(price.amount).." "..price.name end
-            if #prices==0 then lines[#lines+1]="Gratuit" end
+            if #prices==0 then lines[#lines+1]=localized(53,"Gratuit") end
             summary=table.concat(lines,"\n")
             for _,cell in ipairs(grids) do put(cell,"Icon",""); put(cell,"Text","") end
             if not paragraph and grids[1] then
                 local values={}
                 for _,price in ipairs(prices) do values[#values+1]=tostring(price.amount).." "..price.name end
-                put(grids[1],"Text",#prices>0 and table.concat(values," / ") or "Gratuit")
+                put(grids[1],"Text",#prices>0 and table.concat(values," / ") or localized(53,"Gratuit"))
             end
         end
     else
         -- Never present the template residence's cost as the cost of the group.
-        summary=summary.."\nCoût du groupe indisponible"
+        summary=summary.."\n"..localized(54,"Coût du groupe indisponible")
         for _,cell in ipairs(grids) do put(cell,"Icon",""); put(cell,"Text","") end
-        if not paragraph and grids[1] then put(grids[1],"Text","Coût du groupe indisponible") end
+        if not paragraph and grids[1] then put(grids[1],"Text",localized(54,"Coût du groupe indisponible")) end
     end
     if paragraph then put(paragraph,"TextString",summary) end
     if heading and paragraph and not self.reportedTooltip then

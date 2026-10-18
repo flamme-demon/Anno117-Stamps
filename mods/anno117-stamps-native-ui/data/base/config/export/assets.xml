@@ -173,22 +173,22 @@
           <IsUnique>1</IsUnique>
           <Buttons>
             <Item>
-              <Text>1700100180</Text>
+              <Text>1700100002</Text>
             </Item>
             <Item>
-              <Text>1700100181</Text>
+              <Text>1700100002</Text>
             </Item>
             <Item>
-              <Text>1700100182</Text>
+              <Text>1700100002</Text>
             </Item>
             <Item>
-              <Text>1700100183</Text>
+              <Text>1700100002</Text>
             </Item>
             <Item>
-              <Text>1700100184</Text>
+              <Text>1700100002</Text>
             </Item>
             <Item>
-              <Text>1700100185</Text>
+              <Text>1700100002</Text>
             </Item>
             <Item>
               <Text>1700100186</Text>
@@ -198,52 +198,6 @@
             </Item>
             <Item>
               <Text>1700100188</Text>
-            </Item>
-          </Buttons>
-        </Popup>
-      </Values>
-    </Asset>
-  </ModOp>
-  <ModOp Type="addNextSibling" GUID="41474">
-    <Asset>
-      <Template>Popup</Template>
-      <Values>
-        <Standard>
-          <GUID>1551480230</GUID>
-          <Name>Stamps_UI_1551480230</Name>
-        </Standard>
-        <Popup>
-          <HeaderText>1700100000</HeaderText>
-          <BodyText>1700100001</BodyText>
-          <StopModes>0</StopModes>
-          <IsUnique>1</IsUnique>
-          <Buttons>
-            <Item>
-              <Text>1700100002</Text>
-            </Item>
-            <Item>
-              <Text>1700100002</Text>
-            </Item>
-            <Item>
-              <Text>1700100002</Text>
-            </Item>
-            <Item>
-              <Text>1700100002</Text>
-            </Item>
-            <Item>
-              <Text>1700100002</Text>
-            </Item>
-            <Item>
-              <Text>1700100002</Text>
-            </Item>
-            <Item>
-              <Text>1700100202</Text>
-            </Item>
-            <Item>
-              <Text>1700100203</Text>
-            </Item>
-            <Item>
-              <Text>1700100204</Text>
             </Item>
           </Buttons>
         </Popup>

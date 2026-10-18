@@ -1,7 +1,7 @@
 {
   "Anno": 8,
   "ModID": "anno117-stamps-native-ui",
-  "Version": "0.4.0",
+  "Version": "0.4.1",
   "Difficulty": "unchanged",
   "Category": { "English": "Tools", "French": "Outils" },
   "ModName": { "English": "Stamps — native menu", "French": "Stamps — menu natif" },
